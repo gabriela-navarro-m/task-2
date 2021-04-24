@@ -6,7 +6,7 @@
 
 # Configuración inicial
 rm(list = ls()) #Limpia el entorno de R
-pacman::p_load(here,tidyverse,reshape2) #Cargar y/o instalar paquetes requeridos
+pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquetes requeridos
 
 # Punto 1 - Loops
 
@@ -34,7 +34,7 @@ pacman::p_load(here,tidyverse,reshape2) #Cargar y/o instalar paquetes requeridos
 
   # 1.2. 
   
-  # Para no tener que agregar todo individualmente se crea un loop que agrega a una variables las listas que se requieren 
+  # Para no tener que agregar todo individualmente se crea un loop que agrega a una variable las listas que se requieren 
 
   # HOMICIDIOS
   homicidios <- list()
@@ -65,7 +65,7 @@ pacman::p_load(here,tidyverse,reshape2) #Cargar y/o instalar paquetes requeridos
     }
   }
 
-  # HURTO DE AUTOMORES
+  # HURTO DE AUTOMOTORES
   iterar3 = 0
   hurto_automores <- list()
   for (d in (30:39)){
@@ -126,25 +126,31 @@ pacman::p_load(here,tidyverse,reshape2) #Cargar y/o instalar paquetes requeridos
    }
   }
 
-# Voy a dividir los delitos por variables y despues lo agrego en una sola variable
+  # Voy a dividir los delitos por variables y despues lo agrego en una sola variable
 
-tipo_delito <- list()
-tipo_delito[1] <- list(homicidios)
-names(tipo_delito)[1] <- "Homicidios"
-tipo_delito[2] <- list(hurto_entidades_comerciales)
-names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
-tipo_delito[3] <- list(hurto_entidades_financieras)
-names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
-tipo_delito[4] <- list(hurto_automores)
-names(tipo_delito)[4] <- "Hurto de Automores"
-tipo_delito[5] <- list(hurto_motocicletas)
-names(tipo_delito)[5] <- "Hurto de Motocicletas"
-tipo_delito[6] <- list(hurtos_personas)
-names(tipo_delito)[6] <- "Hurto de Personas"
-tipo_delito[7] <- list(lesiones_personales)
-names(tipo_delito)[7] <- "Lesiones Personales"
+  tipo_delito <- list()
+  tipo_delito[1] <- list(homicidios)
+  names(tipo_delito)[1] <- "Homicidios"
+  tipo_delito[2] <- list(hurto_entidades_comerciales)
+  names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
+  tipo_delito[3] <- list(hurto_entidades_financieras)
+  names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
+  tipo_delito[4] <- list(hurto_automores)
+  names(tipo_delito)[4] <- "Hurto de Automores"
+  tipo_delito[5] <- list(hurto_motocicletas)
+  names(tipo_delito)[5] <- "Hurto de Motocicletas"
+  tipo_delito[6] <- list(hurtos_personas)
+  names(tipo_delito)[6] <- "Hurto de Personas"
+  tipo_delito[7] <- list(lesiones_personales)
+  names(tipo_delito)[7] <- "Lesiones Personales"
 
-# 1.3. Use la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
-  # de la lista. Asegúrese de llamar a este objeto df.
+  # 1.3. Use la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
+    # de la lista. Asegúrese de llamar a este objeto df.
 
-df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)
+  df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)
+
+# Punto 2 - Familia apply 
+  
+  # 2.1 
+  
+

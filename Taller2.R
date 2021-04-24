@@ -12,10 +12,16 @@ lista_df = readRDS(file = "data/input/lista.rds")
   # los nombres que se encuentran en una de las filas del dataframe. Además cambie todos los nombres de las
     # variables a minúsculas.
 
-# Existe un error con dos dataframes donde se borro un titulo
- # Para evitar que se elimine la fila voy a arreglarlo antes del loop
-lista_df$`lesiones-personales-2012-2`[8,20] <- is.character(lista_df$`lesiones-personales-2012-2`[8,20])
-lista_df$`lesiones-personales-2012-3`[8,20] <- is.character(lista_df$`lesiones-personales-2012-3`[8,20])
+# En estas dos dataframes que tenemos una de las columnas esta vacia
+  # El problema surge cuando eliminemos las filas de las listas que no tengan NA
+   # Se eliminaria la fila de los titulos tambien en estos dos casos por eso se va a convertir
+     # Esa fila NA en un caracter para poder preservar los titulos de estas dos dataframes
+lista_df$`lesiones-personales-2012-2`[8,20] <- as.character(lista_df$`lesiones-personales-2012-2`[8,20])
+lista_df$`lesiones-personales-2012-3`[8,20] <- as.character(lista_df$`lesiones-personales-2012-3`[8,20])
+
+# Ahora voy a utilizar un loop For In que me evalue todos los elementos de la lista_df 
+  # Y ejecute las condiciones que quiero como eliminar las filas con NA
+   # fijar los titulos de columnas y modificar el titulo a que sean minisculas
                                                               
 for (i in (1:74)){
   lista_df[[i]] <- na.omit(lista_df[[i]])
@@ -27,9 +33,19 @@ for (i in (1:74)){
   lista_df[[i]] <- lista_df[[i]][-1,]
 }
 
+# Adicionalmente voy a utilizar gsub para permitirme homogenizar los titulos de las diferentes listas
+  # Para garantizarme una mejor orden cuando lo convierta en dataframe en el punto 1.3
+
+
 # 1.2. Asegúrese de crear una variable tipo_delito que almacene el tipo de delito.
- # Para no tener que agregar todo individualmente cree un loop que me agregre a una variables las
-  # Listas que quiero
+ 
+
+# El punto quiere que se dividen los elementos de la lista por el tipo de delito
+  # La forma mas eficaz fue crear un loop for in que me haga el trabajo de agregar por categorias
+   # A las listas que le indicara
+
+# Adicionalmente para garantizar una mejor organizacion
+  # Con ayuda de los loops pude nombrar los delitos con su respectivo nombre y año
 
 # HOMICIDIOS
 homicidios <- list()
@@ -60,6 +76,10 @@ for (c in (14:22)){
   }
 }
 
+# En este caso en particular los años de Hurto a Entidades Financieras no estaba por años siguientes como las variables anteriores
+  # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSE para que dentro de mi loop
+   # Nombre los años diferentes segun las condiciones establecidas
+
 # HURTO DE AUTOMORES
 iterar3 = 0
 hurto_automores <- list()
@@ -83,6 +103,10 @@ for (e in c((54:60),40)){
     names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4 + 1),sep = "")
     }
   }
+
+# En este caso Hurto de Motocicletas tiene una situacion similiar a Hurtos Financieros donde se saltan años
+  # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
+    # Se nombraran correctamente los años segun la lista original, lista_df
 
 # HURTO DE PERSONAS
 iterar5 = 0
@@ -121,7 +145,15 @@ for (g in c(61:74)){
   }
 }
 
-# Voy a dividir los delitos por variables y despues lo agrego en una sola variable
+# Lesiones Personales & Hurto de Personas tienen años que cuentan con dos o mas periodos de recoleccion de informacion
+  # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
+    # Se nombraran correctamente los años segun la lista original, lista_df
+      # Ademas, use ifelse para que me nombrara los periodos 1 y 2 de los años correctamente
+
+# Ahora dentro de una sola variable llamada tipo_delito divide los delitos por categorias
+  # Dentro de cada variable de delito por ejemplo "Homicidios, Lesiones personales, etc" 
+    # Ingrese los elementos categorizados por años 
+     # Por ejemplo, dentro de homiciodios se va a ver "Homicidios 2010, Homicidios 2011, etc" 
 
 tipo_delito <- list()
 tipo_delito[1] <- list(homicidios)
@@ -141,5 +173,10 @@ names(tipo_delito)[7] <- "Lesiones Personales"
 
 # 1.3. Use la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
   # de la lista. Asegúrese de llamar a este objeto df.
+
+# Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
+  # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
+    # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe
+      # Uniforme
 
 df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)

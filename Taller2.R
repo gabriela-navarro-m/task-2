@@ -14,12 +14,16 @@ lista_df = readRDS(file = "data/input/lista.rds")
 
 # Existe un error con dos dataframes donde se borro un titulo
  # Para evitar que se elimine la fila voy a arreglarlo antes del loop
-lista_df$`lesiones-personales-2012-2`[8,20] <- is.character("CANTIDAD")
-lista_df$`lesiones-personales-2012-3`[8,20] <- is.character("CANTIDAD")
-
+lista_df$`lesiones-personales-2012-2`[8,20] <- is.character(lista_df$`lesiones-personales-2012-2`[8,20])
+lista_df$`lesiones-personales-2012-3`[8,20] <- is.character(lista_df$`lesiones-personales-2012-3`[8,20])
+                                                              
 for (i in (1:74)){
   lista_df[[i]] <- na.omit(lista_df[[i]])
   colnames(lista_df[[i]]) <- tolower(chartr("áéíóú","aeiou",lista_df[[i]][1,]))
+  colnames(lista_df[[i]]) <- gsub("profesiones","profesion",colnames(lista_df[[i]]))
+  colnames(lista_df[[i]]) <- gsub("pais nace","pais de nacimiento",colnames(lista_df[[i]]))
+  colnames(lista_df[[i]]) <- gsub("clase sitio","clase de sitio",colnames(lista_df[[i]]))
+  colnames(lista_df[[i]]) <- gsub("clase empleado","clase de empleado",colnames(lista_df[[i]]))
   lista_df[[i]] <- lista_df[[i]][-1,]
 }
 

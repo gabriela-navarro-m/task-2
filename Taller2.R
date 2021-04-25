@@ -81,26 +81,26 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
     # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSE para que dentro de mi loop
     # Nombre los años diferentes segun las condiciones establecidas
 
-# HURTO DE AUTOMORES
-iterar3 = 0
-hurto_automores <- list()
-for (d in (30:39)){
-  iterar3 = iterar3 + 1
-  hurto_automores[iterar3] <- lista_df[d]
-  names(hurto_automores)[iterar3] <- paste("Hurto de Automores 201",as.character(iterar3 - 1),sep = "")
-}
+  # HURTO DE AUTOMORES
+  iterar3 = 0
+  hurto_automores <- list()
+  for (d in (30:39)){
+    iterar3 = iterar3 + 1
+    hurto_automores[iterar3] <- lista_df[d]
+    names(hurto_automores)[iterar3] <- paste("Hurto de Automores 201",as.character(iterar3 - 1),sep = "")
+  }
 
-# HURTO DE MOTOCICLETAS
-iterar4 = 0
-hurto_motocicletas <- list()
-for (e in c((54:60),40)) {
-  iterar4 = iterar4 + 1
-  hurto_motocicletas[iterar4] <- lista_df[e]
-  if (iterar4 == 1){
-    names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4 - 1),sep = "")
-  } else if ((iterar4 <= 3) & (iterar4 > 1)){ 
-    names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4),sep = "")
-  }else
+  # HURTO DE MOTOCICLETAS
+  iterar4 = 0
+  hurto_motocicletas <- list()
+  for (e in c((54:60),40)) {
+    iterar4 = iterar4 + 1
+    hurto_motocicletas[iterar4] <- lista_df[e]
+    if (iterar4 == 1){
+      names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4 - 1),sep = "")
+    } else if ((iterar4 <= 3) & (iterar4 > 1)){ 
+      names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4),sep = "")
+    }else
     }
     
     # En este caso Hurto de Motocicletas tiene una situacion similiar a Hurtos Financieros donde se saltan años
@@ -162,21 +162,21 @@ for (e in c((54:60),40)) {
         
   # Voy a dividir los delitos por variables y despues lo agrego en una sola variable
 
-  tipo_delito <- list()
-  tipo_delito[1] <- list(homicidios)
-  names(tipo_delito)[1] <- "Homicidios"
-  tipo_delito[2] <- list(hurto_entidades_comerciales)
-  names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
-  tipo_delito[3] <- list(hurto_entidades_financieras)
-  names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
-  tipo_delito[4] <- list(hurto_automores)
-  names(tipo_delito)[4] <- "Hurto de Automores"
-  tipo_delito[5] <- list(hurto_motocicletas)
-  names(tipo_delito)[5] <- "Hurto de Motocicletas"
-  tipo_delito[6] <- list(hurtos_personas)
-  names(tipo_delito)[6] <- "Hurto de Personas"
-  tipo_delito[7] <- list(lesiones_personales)
-  names(tipo_delito)[7] <- "Lesiones Personales"
+   tipo_delito <- list()
+    tipo_delito[1] <- list(homicidios)
+    names(tipo_delito)[1] <- "Homicidios"
+    tipo_delito[2] <- list(hurto_entidades_comerciales)
+    names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
+    tipo_delito[3] <- list(hurto_entidades_financieras)
+    names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
+    tipo_delito[4] <- list(hurto_automores)
+    names(tipo_delito)[4] <- "Hurto de Automores"
+    tipo_delito[5] <- list(hurto_motocicletas)
+    names(tipo_delito)[5] <- "Hurto de Motocicletas"
+    tipo_delito[6] <- list(hurtos_personas)
+    names(tipo_delito)[6] <- "Hurto de Personas"
+    tipo_delito[7] <- list(lesiones_personales)
+    names(tipo_delito)[7] <- "Lesiones Personales"
 
   # 1.3. Use la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
     # de la lista. Asegúrese de llamar a este objeto df.

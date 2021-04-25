@@ -42,50 +42,18 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
 
   # 1.2. Asegúrese de crear una variable tipo_delito que almacene el tipo de delito.
  
+  # La forma mas eficaz de dividir los elementos de la lista por tipo de delito es crear un loop for in 
+  # que me haga el trabajo de agregar por categorias a las listas que se indiquen. 
 
-# El punto quiere que se dividen los elementos de la lista por el tipo de delito
-  # La forma mas eficaz fue crear un loop for in que me haga el trabajo de agregar por categorias
-   # A las listas que le indicara
-
-# Adicionalmente para garantizar una mejor organizacion
-  # Con ayuda de los loops pude nombrar los delitos con su respectivo nombre y año
-
-# HOMICIDIOS
-homicidios <- list()
-for (a in (1:10)){
-  homicidios[a] <- lista_df[a]
-  names(homicidios)[a] <- paste("Homicidios 201",as.character(a-1),sep = "")
-}
-
-# HURTO A ENTIDADES COMERCIALES
-hurto_entidades_comerciales <- list()
-iterar1 = 0
-for (b in c((11:13),(23:29))){
-  iterar1 = iterar1 + 1
-  hurto_entidades_comerciales[iterar1] <- lista_df[b]
-  names(hurto_entidades_comerciales)[iterar1] <- paste("Hurto a Entidades Comerciales 201",as.character(iterar1-1),sep = "")
-}
-
-# HURTO A ENTIDADES FINANCIERAS
-iterar2 = 0
-hurto_entidades_financieras <- list()
-for (c in (14:22)){
-  iterar2 = iterar2 + 1
-  hurto_entidades_financieras[iterar2] <- lista_df[c]
-
-  
-  
-  # 1.2. 
-  
-  # Para no tener que agregar todo individualmente se crea un loop que agrega a una variable las listas que se requieren 
+  # Adicionalmente para garantizar una mejor organizacion, con ayuda de los loops se pueden nombrar los delitos con su respectivo nombre y año
 
   # HOMICIDIOS
   homicidios <- list()
   for (a in (1:10)){
     homicidios[a] <- lista_df[a]
     names(homicidios)[a] <- paste("Homicidios 201",as.character(a-1),sep = "")
-    }
-
+  }
+  
   # HURTO A ENTIDADES COMERCIALES
   hurto_entidades_comerciales <- list()
   iterar1 = 0
@@ -93,26 +61,25 @@ for (c in (14:22)){
     iterar1 = iterar1 + 1
     hurto_entidades_comerciales[iterar1] <- lista_df[b]
     names(hurto_entidades_comerciales)[iterar1] <- paste("Hurto a Entidades Comerciales 201",as.character(iterar1-1),sep = "")
-    }
-
+  }
+  
   # HURTO A ENTIDADES FINANCIERAS
   iterar2 = 0
   hurto_entidades_financieras <- list()
   for (c in (14:22)){
     iterar2 = iterar2 + 1
     hurto_entidades_financieras[iterar2] <- lista_df[c]
-
-  if (iterar2 >= 3){
-    names(hurto_entidades_financieras)[iterar2] <- paste("Hurto a Entidades Financieras 201",as.character(iterar2),sep = "")
-  } else {
-    names(hurto_entidades_financieras)[iterar2] <- paste("Hurto a Entidades Financieras 201",as.character(iterar2 - 1),sep = "")
+    
+    if (iterar2 >= 3){
+      names(hurto_entidades_financieras)[iterar2] <- paste("Hurto a Entidades Financieras 201",as.character(iterar2),sep = "")
+    } else {
+      names(hurto_entidades_financieras)[iterar2] <- paste("Hurto a Entidades Financieras 201",as.character(iterar2 - 1),sep = "")
     }
   }
-}
 
-# En este caso en particular los años de Hurto a Entidades Financieras no estaba por años siguientes como las variables anteriores
-  # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSE para que dentro de mi loop
-   # Nombre los años diferentes segun las condiciones establecidas
+    # En este caso en particular los años de Hurto a Entidades Financieras no estaba por años siguientes como las variables anteriores
+    # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSE para que dentro de mi loop
+    # Nombre los años diferentes segun las condiciones establecidas
 
 # HURTO DE AUTOMORES
 iterar3 = 0
@@ -126,100 +93,73 @@ for (d in (30:39)){
 # HURTO DE MOTOCICLETAS
 iterar4 = 0
 hurto_motocicletas <- list()
-for (e in c((54:60),40)){
+for (e in c((54:60),40)) {
   iterar4 = iterar4 + 1
   hurto_motocicletas[iterar4] <- lista_df[e]
   if (iterar4 == 1){
     names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4 - 1),sep = "")
   } else if ((iterar4 <= 3) & (iterar4 > 1)){ 
     names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4),sep = "")
-  }else{
-=======
-
-  # HURTO DE AUTOMOTORES
-  iterar3 = 0
-  hurto_automores <- list()
-  for (d in (30:39)){
-   iterar3 = iterar3 + 1
-   hurto_automores[iterar3] <- lista_df[d]
-   names(hurto_automores)[iterar3] <- paste("Hurto de Automores 201",as.character(iterar3 - 1),sep = "")
-  }
-
-  # HURTO DE MOTOCICLETAS
-  iterar4 = 0
-  hurto_motocicletas <- list()
-  for (e in c((54:60),40)){
-   iterar4 = iterar4 + 1
-   hurto_motocicletas[iterar4] <- lista_df[e]
-   if (iterar4 == 1){
-     names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4 - 1),sep = "")
-   } else if ((iterar4 <= 3) & (iterar4 > 1)){ 
-     names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4),sep = "")
-   }else{
->>>>>>> 3a5f5d427cfed35b8f2093a39631921d6f7d3d42
-    names(hurto_motocicletas)[iterar4] <- paste("Hurto de Motocicletas 201",as.character(iterar4 + 1),sep = "")
-      }
+  }else
     }
-
-<<<<<<< HEAD
-# En este caso Hurto de Motocicletas tiene una situacion similiar a Hurtos Financieros donde se saltan años
-  # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
+    
+    # En este caso Hurto de Motocicletas tiene una situacion similiar a Hurtos Financieros donde se saltan años
+    # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
     # Se nombraran correctamente los años segun la lista original, lista_df
-
-# HURTO DE PERSONAS
-iterar5 = 0
-iterar6 = 0
-hurtos_personas <- list()
-for (f in (41:53)){
-  iterar5 = iterar5 + 1
-  hurtos_personas[iterar5] <- lista_df[f]
-  if (iterar5 >= 8){
-    iterar6 = iterar6 + ifelse((iterar5 %% 2) == 0,1,0)
-    iterar7 = 8 
-    iterar7 = iterar7 + iterar6
-    names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar7 - 2),ifelse((iterar5 %% 2) == 0,"-1","-2"), sep = "")
-  } else {
-    names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")
-=======
-  # HURTO DE PERSONAS
-  iterar5 = 0
-  iterar6 = 0
-  hurtos_personas <- list()
-  for (f in (41:53)){
-    iterar5 = iterar5 + 1
-    hurtos_personas[iterar5] <- lista_df[f]
-    if (iterar5 >= 8){
-     iterar6 = iterar6 + ifelse((iterar5 %% 2) == 0,1,0)
-      iterar7 = 8 
-      iterar7 = iterar7 + iterar6
-      names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar7 - 2),ifelse((iterar5 %% 2) == 0,"-1","-2"), sep = "")
-   } else {
-      names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")
-   }
->>>>>>> 3a5f5d427cfed35b8f2093a39631921d6f7d3d42
-  }
-
-  # LESIONES PERSONALES
-  iterar7 = 0
-  iterar8 = 0
-  iterar9 = 0
-  lesiones_personales <-list()
-  for (g in c(61:74)){
-    iterar7 = iterar7 + 1
-   lesiones_personales[iterar7] <- lista_df[g]
-    if (iterar7 <= 6){
-     iterar8 = iterar8 + ifelse((iterar7 %% 2) == 0,0,1)
-     iterar9 = 1
-     iterar9 = iterar9 + iterar8
-     names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),ifelse((iterar7 %% 2) == 0,"-2","-1"), sep = "")
-   } else if (iterar7 == 7){
-      names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),"-3",sep = "")
-    } else {
-     names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar7 - 5),sep = "")
-   }
-  }
-
-<<<<<<< HEAD
+    
+    # HURTO DE PERSONAS
+    iterar5 = 0
+    iterar6 = 0
+    hurtos_personas <- list()
+    for (f in (41:53)) {
+      iterar5 = iterar5 + 1
+      hurtos_personas[iterar5] <- lista_df[f]
+      if (iterar5 >= 8){
+        iterar6 = iterar6 + ifelse((iterar5 %% 2) == 0,1,0)
+        iterar7 = 8 
+        iterar7 = iterar7 + iterar6
+        names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar7 - 2),ifelse((iterar5 %% 2) == 0,"-1","-2"), sep = "")
+      } else {
+        names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")}}
+  
+    # HURTO DE PERSONAS
+          iterar5 = 0
+        iterar6 = 0
+        hurtos_personas <- list()
+        for (f in (41:53)){
+          iterar5 = iterar5 + 1
+          hurtos_personas[iterar5] <- lista_df[f]
+          if (iterar5 >= 8){
+            iterar6 = iterar6 + ifelse((iterar5 %% 2) == 0,1,0)
+            iterar7 = 8 
+            iterar7 = iterar7 + iterar6
+            names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar7 - 2),ifelse((iterar5 %% 2) == 0,"-1","-2"), sep = "")
+          } else {
+            names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")
+          }
+        }
+        
+       # LESIONES PERSONALES
+        iterar7 = 0
+        iterar8 = 0
+        iterar9 = 0
+        lesiones_personales <-list()
+        for (g in c(61:74)){
+          iterar7 = iterar7 + 1
+          lesiones_personales[iterar7] <- lista_df[g]
+          if (iterar7 <= 6){
+            iterar8 = iterar8 + ifelse((iterar7 %% 2) == 0,0,1)
+            iterar9 = 1
+            iterar9 = iterar9 + iterar8
+            names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),ifelse((iterar7 %% 2) == 0,"-2","-1"), sep = "")
+          } else if (iterar7 == 7){
+            names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),"-3",sep = "")
+          } else {
+            names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar7 - 5),sep = "")
+          }
+        }
+        
+        
   # Voy a dividir los delitos por variables y despues lo agrego en una sola variable
 
   tipo_delito <- list()
@@ -248,7 +188,7 @@ for (f in (41:53)){
   # 2.1 
   
 
-=======
+
 # Lesiones Personales & Hurto de Personas tienen años que cuentan con dos o mas periodos de recoleccion de informacion
   # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
     # Se nombraran correctamente los años segun la lista original, lista_df
@@ -275,13 +215,9 @@ names(tipo_delito)[6] <- "Hurto de Personas"
 tipo_delito[7] <- list(lesiones_personales)
 names(tipo_delito)[7] <- "Lesiones Personales"
 
-# 1.3. Use la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
-  # de la lista. Asegúrese de llamar a este objeto df.
+  # 1.3. Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
+        # de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
+        # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
+        # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme
 
-# Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
-  # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
-    # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe
-      # Uniforme
-
-df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)
->>>>>>> ae4f95b61d4f05209857dabf2413b82947b5d957
+  df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)

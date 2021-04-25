@@ -123,35 +123,35 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
         names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")}}
   
     # HURTO DE PERSONAS
-          iterar5 = 0
-        iterar6 = 0
-        hurtos_personas <- list()
-        for (f in (41:53)){
-          iterar5 = iterar5 + 1
-          hurtos_personas[iterar5] <- lista_df[f]
-          if (iterar5 >= 8){
-            iterar6 = iterar6 + ifelse((iterar5 %% 2) == 0,1,0)
-            iterar7 = 8 
-            iterar7 = iterar7 + iterar6
-            names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar7 - 2),ifelse((iterar5 %% 2) == 0,"-1","-2"), sep = "")
-          } else {
-            names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")
-          }
+    iterar5 = 0
+    iterar6 = 0
+    hurtos_personas <- list()
+    for (f in (41:53)){
+    iterar5 = iterar5 + 1
+    hurtos_personas[iterar5] <- lista_df[f]
+      if (iterar5 >= 8){
+      iterar6 = iterar6 + ifelse((iterar5 %% 2) == 0,1,0)
+      iterar7 = 8 
+      iterar7 = iterar7 + iterar6
+      names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar7 - 2),ifelse((iterar5 %% 2) == 0,"-1","-2"), sep = "")
+      } else {
+        names(hurtos_personas)[iterar5] <- paste("Hurto de Personas 201",as.character(iterar5 - 1),sep = "")
         }
+      }
         
-       # LESIONES PERSONALES
-        iterar7 = 0
-        iterar8 = 0
-        iterar9 = 0
-        lesiones_personales <-list()
-        for (g in c(61:74)){
-          iterar7 = iterar7 + 1
-          lesiones_personales[iterar7] <- lista_df[g]
-          if (iterar7 <= 6){
-            iterar8 = iterar8 + ifelse((iterar7 %% 2) == 0,0,1)
-            iterar9 = 1
-            iterar9 = iterar9 + iterar8
-            names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),ifelse((iterar7 %% 2) == 0,"-2","-1"), sep = "")
+    # LESIONES PERSONALES
+    iterar7 = 0
+    iterar8 = 0
+    iterar9 = 0
+    lesiones_personales <-list()
+    for (g in c(61:74)){
+      iterar7 = iterar7 + 1
+      lesiones_personales[iterar7] <- lista_df[g]
+      if (iterar7 <= 6){
+          iterar8 = iterar8 + ifelse((iterar7 %% 2) == 0,0,1)
+          iterar9 = 1
+          iterar9 = iterar9 + iterar8
+          names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),ifelse((iterar7 %% 2) == 0,"-2","-1"), sep = "")
           } else if (iterar7 == 7){
             names(lesiones_personales)[iterar7] <- paste("Lesiones Personales 201",as.character(iterar9 - 2),"-3",sep = "")
           } else {
@@ -159,31 +159,31 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
           }
         }
         
-        # Lesiones Personales & Hurto de Personas tienen años que cuentan con dos o mas periodos de recoleccion de informacion
-        # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
-        # Se nombraran correctamente los años segun la lista original, lista_df
-        # Ademas, use ifelse para que me nombrara los periodos 1 y 2 de los años correctamente
+    # Lesiones Personales & Hurto de Personas tienen años que cuentan con dos o mas periodos de recoleccion de informacion
+    # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
+    # Se nombraran correctamente los años segun la lista original, lista_df
+    # Ademas, use ifelse para que me nombrara los periodos 1 y 2 de los años correctamente
         
-        # Ahora dentro de una sola variable llamada tipo_delito divide los delitos por categorias
-        # Dentro de cada variable de delito por ejemplo "Homicidios, Lesiones personales, etc" 
-        # Ingrese los elementos categorizados por años 
-        # Por ejemplo, dentro de homiciodios se va a ver "Homicidios 2010, Homicidios 2011, etc" 
+    # Ahora dentro de una sola variable llamada tipo_delito divide los delitos por categorias
+    # Dentro de cada variable de delito por ejemplo "Homicidios, Lesiones personales, etc" 
+    # Ingrese los elementos categorizados por años 
+    # Por ejemplo, dentro de homiciodios se va a ver "Homicidios 2010, Homicidios 2011, etc" 
 
-          tipo_delito <- list()
-          tipo_delito[1] <- list(homicidios)
-          names(tipo_delito)[1] <- "Homicidios"
-          tipo_delito[2] <- list(hurto_entidades_comerciales)
-          names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
-          tipo_delito[3] <- list(hurto_entidades_financieras)
-          names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
-          tipo_delito[4] <- list(hurto_automores)
-          names(tipo_delito)[4] <- "Hurto de Automores"
-          tipo_delito[5] <- list(hurto_motocicletas)
-          names(tipo_delito)[5] <- "Hurto de Motocicletas"
-          tipo_delito[6] <- list(hurtos_personas)
-          names(tipo_delito)[6] <- "Hurto de Personas"
-          tipo_delito[7] <- list(lesiones_personales)
-          names(tipo_delito)[7] <- "Lesiones Personales"
+    tipo_delito <- list()
+    tipo_delito[1] <- list(homicidios)
+    names(tipo_delito)[1] <- "Homicidios"
+    tipo_delito[2] <- list(hurto_entidades_comerciales)
+    names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
+    tipo_delito[3] <- list(hurto_entidades_financieras)
+    names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
+    tipo_delito[4] <- list(hurto_automores)
+    names(tipo_delito)[4] <- "Hurto de Automores"
+    tipo_delito[5] <- list(hurto_motocicletas)
+    names(tipo_delito)[5] <- "Hurto de Motocicletas"
+    tipo_delito[6] <- list(hurtos_personas)
+    names(tipo_delito)[6] <- "Hurto de Personas"
+    tipo_delito[7] <- list(lesiones_personales)
+    names(tipo_delito)[7] <- "Lesiones Personales"
 
     # 1.3. Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
     # de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular

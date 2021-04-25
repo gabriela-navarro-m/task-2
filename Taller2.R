@@ -159,29 +159,38 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
           }
         }
         
+        # Lesiones Personales & Hurto de Personas tienen años que cuentan con dos o mas periodos de recoleccion de informacion
+        # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
+        # Se nombraran correctamente los años segun la lista original, lista_df
+        # Ademas, use ifelse para que me nombrara los periodos 1 y 2 de los años correctamente
         
-  # Voy a dividir los delitos por variables y despues lo agrego en una sola variable
+        # Ahora dentro de una sola variable llamada tipo_delito divide los delitos por categorias
+        # Dentro de cada variable de delito por ejemplo "Homicidios, Lesiones personales, etc" 
+        # Ingrese los elementos categorizados por años 
+        # Por ejemplo, dentro de homiciodios se va a ver "Homicidios 2010, Homicidios 2011, etc" 
 
-   tipo_delito <- list()
-    tipo_delito[1] <- list(homicidios)
-    names(tipo_delito)[1] <- "Homicidios"
-    tipo_delito[2] <- list(hurto_entidades_comerciales)
-    names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
-    tipo_delito[3] <- list(hurto_entidades_financieras)
-    names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
-    tipo_delito[4] <- list(hurto_automores)
-    names(tipo_delito)[4] <- "Hurto de Automores"
-    tipo_delito[5] <- list(hurto_motocicletas)
-    names(tipo_delito)[5] <- "Hurto de Motocicletas"
-    tipo_delito[6] <- list(hurtos_personas)
-    names(tipo_delito)[6] <- "Hurto de Personas"
-    tipo_delito[7] <- list(lesiones_personales)
-    names(tipo_delito)[7] <- "Lesiones Personales"
+          tipo_delito <- list()
+          tipo_delito[1] <- list(homicidios)
+          names(tipo_delito)[1] <- "Homicidios"
+          tipo_delito[2] <- list(hurto_entidades_comerciales)
+          names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
+          tipo_delito[3] <- list(hurto_entidades_financieras)
+          names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
+          tipo_delito[4] <- list(hurto_automores)
+          names(tipo_delito)[4] <- "Hurto de Automores"
+          tipo_delito[5] <- list(hurto_motocicletas)
+          names(tipo_delito)[5] <- "Hurto de Motocicletas"
+          tipo_delito[6] <- list(hurtos_personas)
+          names(tipo_delito)[6] <- "Hurto de Personas"
+          tipo_delito[7] <- list(lesiones_personales)
+          names(tipo_delito)[7] <- "Lesiones Personales"
 
-  # 1.3. Use la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
-    # de la lista. Asegúrese de llamar a este objeto df.
-
-  df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)
+    # 1.3. Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
+    # de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
+    # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
+    # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme
+    
+    df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)
 
 # Punto 2 - Familia apply 
   
@@ -189,35 +198,6 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
   
 
 
-# Lesiones Personales & Hurto de Personas tienen años que cuentan con dos o mas periodos de recoleccion de informacion
-  # Por eso, para remedir esta situacion hice uso de las condicionales IF-ELSEI-ELSE para que dentro de mi loop
-    # Se nombraran correctamente los años segun la lista original, lista_df
-      # Ademas, use ifelse para que me nombrara los periodos 1 y 2 de los años correctamente
 
-# Ahora dentro de una sola variable llamada tipo_delito divide los delitos por categorias
-  # Dentro de cada variable de delito por ejemplo "Homicidios, Lesiones personales, etc" 
-    # Ingrese los elementos categorizados por años 
-     # Por ejemplo, dentro de homiciodios se va a ver "Homicidios 2010, Homicidios 2011, etc" 
 
-tipo_delito <- list()
-tipo_delito[1] <- list(homicidios)
-names(tipo_delito)[1] <- "Homicidios"
-tipo_delito[2] <- list(hurto_entidades_comerciales)
-names(tipo_delito)[2] <- "Hurto de Entidades Comerciales"
-tipo_delito[3] <- list(hurto_entidades_financieras)
-names(tipo_delito)[3] <- "Hurto de Entidades Financieras"
-tipo_delito[4] <- list(hurto_automores)
-names(tipo_delito)[4] <- "Hurto de Automores"
-tipo_delito[5] <- list(hurto_motocicletas)
-names(tipo_delito)[5] <- "Hurto de Motocicletas"
-tipo_delito[6] <- list(hurtos_personas)
-names(tipo_delito)[6] <- "Hurto de Personas"
-tipo_delito[7] <- list(lesiones_personales)
-names(tipo_delito)[7] <- "Lesiones Personales"
-
-  # 1.3. Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
-        # de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
-        # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
-        # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme
-
-  df <- rbindlist(lista_df, use.names = TRUE, idcol = TRUE, fill = TRUE)
+  

@@ -190,7 +190,18 @@ for (m in (1:31)){
 }
 
 
-                                          
+#3
+#3.1
+vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
+f_min <- function(elemento){
+  if (is.character(elemento)==T) {
+    minuscula= tolower(elemento)
+  }
+  return(minuscula)
+}
+f_min(vector)
 
-
-
+#3.2
+df2= for (j in df) {
+  f_min(j)
+}

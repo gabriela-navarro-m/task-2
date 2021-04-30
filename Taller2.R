@@ -55,7 +55,7 @@ lapply(df,function(x) table(x) %>% sort(decreasing = T) %>% head(10))
 
 #3
 #3.1
-vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
+vector = c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
 f_min <- function(elemento){
   if (is.character(elemento)==T) {
     minuscula= tolower(elemento)
@@ -65,6 +65,11 @@ f_min <- function(elemento){
 f_min(vector)
 
 #3.2
-df2= for (j in df) {
+df2 = for (j in df) {
   f_min(j)
 }
+
+
+
+
+

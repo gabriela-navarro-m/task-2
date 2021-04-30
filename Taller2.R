@@ -50,21 +50,23 @@ df <- rbindlist(lista_df, use.names = TRUE,fill = TRUE)
 
 # 2.1 - Use la función lapply para pintar sobre la consola una tabla de frecuencia para cada variable del objeto df.
 
-skimr::skim(df)
-lapply(df,function(x) table(x) %>% sort(decreasing = T) %>% head(10))
+skimr::skim(df) #se usa esta funcion para tener un resumen de las variables con informacion estadistica separadas entre variables de caracteres y numericas
+lapply(df,function(x) table(x) %>% sort(decreasing = T) %>% head(10)) #otra opcion es el mismo lapply donde se usa la funcion table para la tabla de frecuencia pero al tener tanta informacion se organiza de forma decreciente y se filtra para que queden solo los 10 valores mas comunes de cada variable y su cantidad de veces 
+       
 
 #3
 #3.1
+#para probar la funcion se usa un vector con los nombres en mayuscula
 vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
-f_min <- function(elemento){
-  if (is.character(elemento)==T) {
-    minuscula= tolower(elemento)
+f_min <- function(elemento){#la funcion se hace basada en un elemento del vector o dataframe a analizar 
+  if (is.character(elemento)==T) {#por lo que se busca que solo corra para las variables que son de forma de caracter porque no se puede pasar a minuscula un numero.
+    minuscula= tolower(elemento) #se usa la funcion preestablecida tolower para pasar de mayuscula a minuscula el elemento a analizar que cumpla la condicion de ser caracter
   }
-  return(minuscula)
+  return(minuscula) #retornara el elemento ya en minuscula que se necesita
 }
+
 f_min(vector)
 
 #3.2
-df2= for (j in df) {
-  f_min(j)
-}
+#se usa lapply para coger todas las variables del dataframe df y se les aplica la funcion de f_min creada anteriormente para pasar todos los elementos de caracteres a minuscula.
+df2= lapply(df,function(x) f_min(x)) 

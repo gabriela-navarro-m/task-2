@@ -1,8 +1,13 @@
-# Elaborado por: Gabriela Navarro (201821568), Daniela Quintero y Maria Alejandra Saavedra (201815221)
-# Fecha de elaboración: 23/04/2021
-# Ultima modificación:
+# =========================================================== #
+# Elaborado por: Gabriela Navarro (201821568)                 #
+#                Daniela Quintero (201821754)                 #
+#                Maria Alejandra Saavedra (201815221)         #                                                               
+# Fecha de elaboración: 23/04/2021                            #
+# Ultima modificación: 02/05/2021                             #
+# =========================================================== #
 
-### Taller A ###
+
+### TASK 2 - TALLER A ###
 
 # Configuración inicial
 
@@ -11,62 +16,78 @@ pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquete
 
 # Punto 1 - Loops
 
-# 1.0. Se importa el archivo lista.rds con readRDS por el formato del archivo. 
+  # 1.0. 
 
-lista_df = readRDS(file = "data/input/lista.rds")
-lista_df
+  # Se importa el archivo lista.rds con readRDS por el formato del archivo. 
 
-# 1.1. 
+  lista_df = readRDS(file = "data/input/lista.rds")
+  lista_df
 
-# Se utiliza un loop For In que evalue todos los elementos de la lista_df y ejecute las condiciones que quiero, como eliminar las filas con NA,
-# fijar los titulos de columnas y modificar el titulo (ponerlo en minusculas)
+  # 1.1. 
 
-# Adicionalmente se utiliza gsub para homogenizar los titulos de las diferentes listas y garantizar un mejor orden cuando se convierta en dataframe en el punto 1.3
+  # Se utiliza un 'loop for in' que evalue todos los elementos de la lista_df y ejecute las condiciones que se requieren, como eliminar las filas con NA,
+  # fijar los titulos de columnas y modificar el titulo (ponerlo en minusculas).
 
-for (i in (1:length(lista_df))){
-  lista_df[[i]] <- lista_df[[i]] %>% subset(is.na(...2) == F) %>% data.frame(stringsAsFactors = F)
-  colnames(lista_df[[i]]) <- tolower(chartr("áéíóú","aeiou",lista_df[[i]][1,]))
-  colnames(lista_df[[i]]) <- gsub("profesiones","profesion",colnames(lista_df[[i]]))
-  colnames(lista_df[[i]]) <- gsub("pais nace","pais de nacimiento",colnames(lista_df[[i]]))
-  colnames(lista_df[[i]]) <- gsub("clase sitio","clase de sitio",colnames(lista_df[[i]]))
-  colnames(lista_df[[i]]) <- gsub("clase empleado","clase de empleado",colnames(lista_df[[i]]))
-  lista_df[[i]] <- lista_df[[i]][-1,]
-}
+  # Adicionalmente se utiliza 'gsub' para homogenizar los titulos de las diferentes listas y garantizar un mejor orden cuando se convierta en dataframe en el punto 1.3
 
-# 1.2. Asegúrese de crear una variable tipo_delito que almacene el tipo de delito.
+  for (i in (1:length(lista_df))){
+    lista_df[[i]] <- lista_df[[i]] %>% subset(is.na(...2) == F) %>% data.frame(stringsAsFactors = F)
+    colnames(lista_df[[i]]) <- tolower(chartr("áéíóú","aeiou",lista_df[[i]][1,]))
+    colnames(lista_df[[i]]) <- gsub("profesiones","profesion",colnames(lista_df[[i]]))
+    colnames(lista_df[[i]]) <- gsub("pais nace","pais de nacimiento",colnames(lista_df[[i]]))
+    colnames(lista_df[[i]]) <- gsub("clase sitio","clase de sitio",colnames(lista_df[[i]]))
+    colnames(lista_df[[i]]) <- gsub("clase empleado","clase de empleado",colnames(lista_df[[i]]))
+    lista_df[[i]] <- lista_df[[i]][-1,]
+  }
 
-vector_names = names(lista_df)
-for (i in (1:length(lista_df))){
-  lista_df[[i]] <- mutate(lista_df[[i]],tipo_delito = vector_names)
-}
-# 1.3. Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
-# de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
-# Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
-# Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme
+  # 1.2. 
 
-df <- rbindlist(lista_df, use.names = TRUE,fill = TRUE)
+  # Se crea una variable llamada 'tipo_delito' que almacena, como lo dice su nombre, el tipo de delito. 
+  # Para ello, se solicitan los nombres del contenido del objeto en lista_df y se hace uso de 'mutate' para crear la variable
+  # a partir de variables ya existentes. 
+
+  vector_names = names(lista_df)
+  for (i in (1:length(lista_df))){
+    lista_df[[i]] <- mutate(lista_df[[i]],tipo_delito = vector_names)
+  }
+
+  # 1.3. 
+
+  # Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
+  # de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
+  # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
+  # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme
+
+  df <- rbindlist(lista_df, use.names = TRUE,fill = TRUE)
 
 # Punto 2 - Familia apply 
 
-# 2.1 - Use la función lapply para pintar sobre la consola una tabla de frecuencia para cada variable del objeto df.
+  # 2.1 
 
-skimr::skim(df) #se usa esta funcion para tener un resumen de las variables con informacion estadistica separadas entre variables de caracteres y numericas
-lapply(df,function(x) table(x) %>% sort(decreasing = T) %>% head(10)) #otra opcion es el mismo lapply donde se usa la funcion table para la tabla de frecuencia pero al tener tanta informacion se organiza de forma decreciente y se filtra para que queden solo los 10 valores mas comunes de cada variable y su cantidad de veces 
+  # Se pinta en la consola una tabla de frecuencia para cada variable del objeto df. 
+
+  skimr::skim(df) # Se usa esta funcion para tener un resumen de las variables con informacion estadistica separadas entre variables de caracteres y numericas
+  lapply(df,function(x) table(x) %>% sort(decreasing = T) %>% head(10)) # Otra opcion es el mismo lapply donde se usa la funcion table para la tabla de frecuencia pero al tener tanta informacion se organiza de forma decreciente y se filtra para que queden solo los 10 valores mas comunes de cada variable y su cantidad de veces 
        
 
-#3
-#3.1
-#para probar la funcion se usa un vector con los nombres en mayuscula
-vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
-f_min <- function(elemento){#la funcion se hace basada en un elemento del vector o dataframe a analizar 
-  if (is.character(elemento)==T) {#por lo que se busca que solo corra para las variables que son de forma de caracter porque no se puede pasar a minuscula un numero.
-    minuscula= tolower(elemento) #se usa la funcion preestablecida tolower para pasar de mayuscula a minuscula el elemento a analizar que cumpla la condicion de ser caracter
+# Punto 3 
+         
+  #3.1
+         
+  # Para probar la funcion se usa un vector con los nombres en mayuscula
+         
+  vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
+  f_min <- function(elemento){#la funcion se hace basada en un elemento del vector o dataframe a analizar 
+    if (is.character(elemento)==T) {#por lo que se busca que solo corra para las variables que son de forma de caracter porque no se puede pasar a minuscula un numero.
+      minuscula= tolower(elemento) #se usa la funcion preestablecida tolower para pasar de mayuscula a minuscula el elemento a analizar que cumpla la condicion de ser caracter
+    }
+    return(minuscula) #retornara el elemento que se requiere en minuscula 
   }
-  return(minuscula) #retornara el elemento ya en minuscula que se necesita
-}
 
-f_min(vector)
+  f_min(vector)
 
-#3.2
-#se usa lapply para coger todas las variables del dataframe df y se les aplica la funcion de f_min creada anteriormente para pasar todos los elementos de caracteres a minuscula.
-df2= lapply(df,function(x) f_min(x)) 
+  #3.2
+         
+  # Se usa lapply para coger todas las variables del dataframe df y se les aplica la funcion de f_min creada anteriormente para pasar todos los elementos de caracteres a minuscula.
+         
+  df2= lapply(df,function(x) f_min(x)) 

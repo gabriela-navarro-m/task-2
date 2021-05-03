@@ -59,7 +59,10 @@ pacman::p_load(here,tidyverse,reshape2, data.table, skimr) #Cargar y/o instalar 
   # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme
 
   df <- rbindlist(lista_df, use.names = TRUE,fill = TRUE)
-
+  
+  #Para exportarla a output
+  saveRDS(object = df, file = "data/output/df.rds")
+  
 # Punto 2 - Familia apply 
 
   # 2.1 
@@ -91,3 +94,7 @@ pacman::p_load(here,tidyverse,reshape2, data.table, skimr) #Cargar y/o instalar 
   # Se usa lapply para coger todas las variables del dataframe df y se les aplica la funcion de f_min creada anteriormente para pasar todos los elementos de caracteres a minuscula.
          
   df2= lapply(df,function(x) f_min(x)) 
+  
+  #Para exportarla a output
+  saveRDS(object = df2, file = "data/output/df_minuscula.rds")
+  

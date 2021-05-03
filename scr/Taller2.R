@@ -12,7 +12,7 @@
 # Configuración inicial
 
 rm(list = ls()) #Limpia el entorno de R
-pacman::p_load(here,tidyverse,reshape2, data.table) #Cargar y/o instalar paquetes requeridos
+pacman::p_load(here,tidyverse,reshape2, data.table, skimr) #Cargar y/o instalar paquetes requeridos
 
 # Punto 1 - Loops
 

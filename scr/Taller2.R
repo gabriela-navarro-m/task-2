@@ -3,7 +3,7 @@
 #                Daniela Quintero (201821754)                 #
 #                Maria Alejandra Saavedra (201815221)         #                                                               
 # Fecha de elaboración: 23/04/2021                            #
-# Ultima modificación: 02/05/2021                             #
+# Ultima modificación: 03/05/2021                             #
 # =========================================================== #
 
 
@@ -80,9 +80,12 @@ pacman::p_load(here,tidyverse,reshape2, data.table, skimr) #Cargar y/o instalar 
   # Para probar la funcion se usa un vector con los nombres en mayuscula
          
   vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
-  f_min <- function(elemento){#la funcion se hace basada en un elemento del vector o dataframe a analizar 
-    if (is.character(elemento)==T) {#por lo que se busca que solo corra para las variables que son de forma de caracter porque no se puede pasar a minuscula un numero.
-      minuscula= tolower(elemento) #se usa la funcion preestablecida tolower para pasar de mayuscula a minuscula el elemento a analizar que cumpla la condicion de ser caracter
+  #la funcion se hace basada en un elemento del vector o dataframe a analizar
+  #por lo que se busca que solo corra para las variables que son de forma de caracter porque no se puede pasar a minuscula un numero.
+  #se usa la funcion preestablecida tolower para pasar de mayuscula a minuscula el elemento a analizar que cumpla la condicion de ser caracter
+  f_min <- function(elemento){ 
+    if (is.character(elemento)==T) {
+      minuscula= tolower(elemento) 
     }
     return(minuscula) #retornara el elemento que se requiere en minuscula 
   }

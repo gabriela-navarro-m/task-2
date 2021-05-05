@@ -100,9 +100,6 @@ f_min(vector)
 
 df2 = lapply(df,function(x) f_min(x)) 
 
-df3 = for (j in df){
-  f_min(j)
-}
 #Para exportarla a output
 saveRDS(object = df2, file = "data/output/df_minuscula.rds")
 

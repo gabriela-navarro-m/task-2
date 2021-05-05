@@ -3,13 +3,13 @@
 #                Daniela Quintero (201821754)                 #
 #                Maria Alejandra Saavedra (201815221)         #                                                               
 # Fecha de elaboración: 23/04/2021                            #
-# Ultima modificación: 04/05/2021                             #
+# Ultima modificación: 05/05/2021                             #
 # =========================================================== #
 
 
 ### TASK 2 - TALLER A ###
 
-# Configuración inicial
+# Configuracion inicial
 
 rm(list = ls()) #Limpia el entorno de R
 pacman::p_load(here,tidyverse,reshape2, data.table, skimr,base) #Cargar y/o instalar paquetes requeridos
@@ -52,7 +52,7 @@ for (i in (1:length(lista_df))){
 
 # 1.3. 
 
-# Se usa la función rbindlist de la librería data.table para crear un dataframe que contenga todos los elementos
+# Se usa la funcion rbindlist de la libreria data.table para crear un dataframe que contenga todos los elementos
 # de la lista. Rbindlist tiene como objetivo unir las listas dentro de un dataframe singular
 # Le pedi que unificara mi lista, lista_df, a base de los nombres de las columnas
 # Tambien le pedi que me llenara los elementos vacios con NA para tener un dataframe uniforme

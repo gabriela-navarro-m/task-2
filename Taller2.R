@@ -32,8 +32,7 @@ lista_df
 
 for (i in (1:length(lista_df))){
   lista_df[[i]] <- lista_df[[i]] %>% subset(is.na(...2) == F) %>% data.frame(stringsAsFactors = F)
-  colnames(lista_df[[i]]) <- lista_df[[i]][1,] %>% unlist() %>% as.character() %>% tolower()
-  colnames(lista_df[[i]]) <- chartr("áéíóú","aeiou",lista_df[[i]][1,])
+  colnames(lista_df[[i]]) <- tolower(chartr("áéíóú","aeiou",lista_df[[i]][1,]))
   colnames(lista_df[[i]]) <- gsub("profesiones","profesion",colnames(lista_df[[i]]))
   colnames(lista_df[[i]]) <- gsub("pais nace","pais de nacimiento",colnames(lista_df[[i]]))
   colnames(lista_df[[i]]) <- gsub("clase sitio","clase de sitio",colnames(lista_df[[i]]))
@@ -80,10 +79,13 @@ lapply(df,function(x) table(x) %>% sort(decreasing = T) %>% head(10)) # Otra opc
 # Para probar la funcion se usa un vector con los nombres en mayuscula
 
 vector=c('MARIA', 'DANIELA', 'ALEJANDRA', 'GABRIELA')
+
 #la funcion se hace basada en un elemento del vector o dataframe a analizar
 #por lo que se busca que solo corra para las variables que son de forma de caracter porque no se puede pasar a minuscula un numero.
 #se usa la funcion preestablecida tolower para pasar de mayuscula a minuscula el elemento a analizar que cumpla la condicion de ser caracter
+
 f_min <- function(elemento){ 
+  minuscula = elemento
   if (is.character(elemento) == T) {
     minuscula = tolower(elemento) 
   }
@@ -96,7 +98,16 @@ f_min(vector)
 
 # Se usa lapply para coger todas las variables del dataframe df y se les aplica la funcion de f_min creada anteriormente para pasar todos los elementos de caracteres a minuscula.
 
-df2= lapply(df,function(x) f_min(x)) 
+df2 = lapply(df,function(x) f_min(x)) 
 
+df3 = for (j in df){
+  f_min(j)
+}
 #Para exportarla a output
 saveRDS(object = df2, file = "data/output/df_minuscula.rds")
+
+
+
+
+
+
